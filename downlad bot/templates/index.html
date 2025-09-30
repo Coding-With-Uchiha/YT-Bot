@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Video Downloader</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Video Downloader</h1>
+
+    {% if formats %}
+        <h2>Select Quality for: {{ title }}</h2>
+        <form method="POST">
+            <input type="hidden" name="url" value="{{ url }}">
+            <select name="format_id" required>
+                {% for f in formats %}
+                    <option value="{{ f.format_id }}">{{ f.resolution }} | {{ f.ext }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Download</button>
+        </form>
+    {% else %}
+        <form method="POST">
+            <input type="text" name="url" placeholder="Paste video URL" required>
+            <button type="submit">Check Video</button>
+        </form>
+    {% endif %}
+</div>
+</body>
+</html>
